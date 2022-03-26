@@ -31,9 +31,10 @@
           placeholder="password"
           name="password"
           v-model="loginForm.password"
+          :type="pwdType"
         />
-        <span class="show-pwd">
-          <svg-icon icon="eye" />
+        <span class="show-pwd" @click="onChangePwdType">
+          <svg-icon :icon="pwdType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
@@ -71,6 +72,16 @@ const loginRules = ref({
     }
   ]
 })
+
+// 处理密码框文本显示状态
+const pwdType = ref('password')
+const onChangePwdType = () => {
+  if (pwdType.value === 'password') {
+    pwdType.value = 'text'
+  } else {
+    pwdType.value = 'password'
+  }
+}
 </script>
 
 <style lang="scss" scoped>
