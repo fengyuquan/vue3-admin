@@ -56,7 +56,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { validatePassword } from './rules'
+import { validatePassword, validateEmail } from './rules'
 import { useStore } from 'vuex'
 
 // 数据源
@@ -71,7 +71,7 @@ const loginRules = ref({
     {
       required: true,
       trigger: 'blur',
-      message: '邮箱为必填项'
+      validator: validateEmail()
     }
   ],
   password: [
