@@ -26,8 +26,8 @@ export default {
       //     })
       // })
       try {
-        const data = await login(userInfo)
-        this.commit('user/setToken', data?.data?.token)
+        const { token } = await login(userInfo)
+        this.commit('user/setToken', token)
       } catch (err) {
         if (process.env.NODE_ENV === 'development') {
           console.log(err)
