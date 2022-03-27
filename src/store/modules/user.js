@@ -1,9 +1,18 @@
 import { login } from '@/api/user'
+import { setItem, getItem } from '@/utils/storage'
+import { TOKEN } from '@/constant'
 
 export default {
   namespaced: true,
-  state: () => ({}),
-  mutations: {},
+  state: () => ({
+    token: getItem(TOKEN) ?? ''
+  }),
+  mutations: {
+    setToken(state, token) {
+      state.token = token
+      setItem(TOKEN, token)
+    }
+  },
   actions: {
     async login(ctx, userInfo) {
       // const { email, password } = userInfo
@@ -17,7 +26,8 @@ export default {
       //     })
       // })
       try {
-        await login(userInfo)
+        const data = await login(userInfo)
+        this.commit('user/setToken', data?.data?.token)
       } catch (err) {
         if (process.env.NODE_ENV === 'development') {
           console.log(err)
