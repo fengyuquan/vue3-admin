@@ -56,8 +56,10 @@
 
 <script setup>
 import { ref } from 'vue'
-import { validatePassword, validateEmail } from './rules'
 import { useStore } from 'vuex'
+import { ElMessage } from 'element-plus'
+import { validatePassword, validateEmail } from './rules'
+import router from '@/router'
 
 // 数据源
 const loginForm = ref({
@@ -114,6 +116,8 @@ const handleLogin = () => {
     //   })
     await store.dispatch('user/login', loginForm.value)
     loading.value = false
+    ElMessage.success('登陆成功')
+    router.push('/')
   })
 }
 </script>

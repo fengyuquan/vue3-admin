@@ -6,6 +6,7 @@ import installElementPlus from './plugins/element'
 import installSvgIcon from './icons'
 
 import './styles/index.scss'
+import './permission'
 
 const app = createApp(App)
 installElementPlus(app)
