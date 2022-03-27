@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 const login = (data) => {
   return request({
-    url: '/sys/login',
+    url: '/token/login',
     method: 'POST',
     data
   })

@@ -5,7 +5,7 @@
         <h3 class="title">用户登陆</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="email">
         <span class="svg-container">
           <!-- <el-icon>
             <avatar />
@@ -13,13 +13,13 @@
           <!-- 实验外部图标 -->
           <!-- <svg-icon icon="https://res.lgdsunday.club/user.svg" /> -->
           <!-- 实验内部图标 -->
-          <svg-icon icon="user" />
+          <svg-icon icon="email" />
         </span>
         <el-input
-          placeholder="username"
-          name="username"
+          placeholder="email"
+          name="email"
           type="text"
-          v-model="loginForm.username"
+          v-model="loginForm.email"
         />
       </el-form-item>
 
@@ -56,17 +56,17 @@ import { useStore } from 'vuex'
 
 // 数据源
 const loginForm = ref({
-  username: 'super-admin',
-  password: '123456'
+  email: '420125423@qq.com',
+  password: '123456a'
 })
 
 // 验证规则
 const loginRules = ref({
-  username: [
+  email: [
     {
       required: true,
       trigger: 'blur',
-      message: '用户名为必填项'
+      message: '邮箱为必填项'
     }
   ],
   password: [

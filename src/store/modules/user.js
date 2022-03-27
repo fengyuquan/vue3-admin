@@ -1,5 +1,4 @@
-import { login } from '@/api/sys'
-import md5 from 'md5'
+import { login } from '@/api/user'
 
 export default {
   namespaced: true,
@@ -7,9 +6,9 @@ export default {
   mutations: {},
   actions: {
     login(ctx, userInfo) {
-      const { username, password } = userInfo
+      const { email, password } = userInfo
       return new Promise((resolve, reject) => {
-        login({ username, password: md5(password) })
+        login({ email, password })
           .then((data) => {
             resolve()
           })
