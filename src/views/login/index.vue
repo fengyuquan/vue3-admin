@@ -1,6 +1,11 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form" :model="loginForm" :rules="loginRules" ref="loginFromRef">
+    <el-form
+      class="login-form"
+      :model="loginForm"
+      :rules="loginRules"
+      ref="loginFromRef"
+    >
       <div class="title-container">
         <h3 class="title">用户登陆</h3>
       </div>
@@ -93,20 +98,22 @@ const loading = ref(false)
 const loginFromRef = ref(null)
 const store = useStore()
 const handleLogin = () => {
-  loginFromRef.value.validate((valid) => {
+  loginFromRef.value.validate(async (valid) => {
     if (!valid) return
 
     loading.value = true
-    store
-      .dispatch('user/login', loginForm.value)
-      .then(() => {
-        loading.value = false
-        // TODO 登陆后操作
-      })
-      .catch((err) => {
-        console.log(err)
-        loading.value = false
-      })
+    // store
+    //   .dispatch('user/login', loginForm.value)
+    //   .then(() => {
+    //     loading.value = false
+    //     // TODO 登陆后操作
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //     loading.value = false
+    //   })
+    await store.dispatch('user/login', loginForm.value)
+    loading.value = false
   })
 }
 </script>
