@@ -7,6 +7,13 @@ function resolve(dir) {
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  css: {
+    loaderOptions: {
+      scss: {
+        additionalData: `@import "~@/styles/mixin.scss";`
+      }
+    }
+  },
   chainWebpack(config) {
     // 设置 svg-sprite-loader
     config.module.rule('svg').exclude.add(resolve('src/icons')).end()
