@@ -1,5 +1,6 @@
 import store from '@/store'
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
 import { isTimeout } from './auth'
 
 const service = axios.create({
@@ -24,6 +25,9 @@ service.interceptors.request.use(
     return config // 必须返回配置
   },
   (error) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(error)
+    }
     return Promise.reject(error)
   }
 )
@@ -36,7 +40,16 @@ service.interceptors.response.use(
   },
   (error) => {
     const { data } = error.response
-    // TODO: 处理token超时问题
+    // 处理token超时、失效，未携带token访问权限接口的问题
+    const code = data.code
+    if (code === 20003 || code === 20004 || code === 20007 || code === 20008) {
+      store.dispatch('user/logout')
+      ElMessage.error(data?.message || '请重新登陆')
+    }
+    if (process.env.NODE_ENV === 'development') {
+      console.log(error)
+    }
+
     return Promise.reject(data)
   }
 )
