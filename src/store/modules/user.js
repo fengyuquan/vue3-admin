@@ -1,6 +1,6 @@
 import { getUserInfo, login } from '@/api/user'
 import { setItem, getItem, removeAllItem } from '@/utils/storage'
-import { RES_Ok, TOKEN } from '@/constant'
+import { TOKEN } from '@/constant'
 import router from '@/router'
 import { setTimeStamp } from '@/utils/auth'
 
@@ -24,30 +24,18 @@ export default {
      * 登陆
      */
     async login(ctx, userInfo) {
-      try {
-        const { token } = await login(userInfo)
-        this.commit('user/setToken', token)
-        setTimeStamp() // 保存登陆时间
-      } catch (err) {
-        if (process.env.NODE_ENV === 'development') {
-          console.log(err)
-        }
-      }
+      // 网络请求可能会抛出错误，这里没有捕获，需要在使用的地方自己捕获
+      const { token } = await login(userInfo)
+      this.commit('user/setToken', token)
+      setTimeStamp() // 保存登陆时间
     },
     /**
      * 获取用户信息
      */
     async getUserInfo(ctx) {
-      try {
-        const res = await getUserInfo()
-        if (res.code !== RES_Ok) throw new Error(res)
-        this.commit('user/setUserInfo', res.data)
-        return res
-      } catch (err) {
-        if (process.env.NODE_ENV === 'development') {
-          console.log(err)
-        }
-      }
+      // 网络请求可能会抛出错误，这里没有捕获，需要在使用的地方自己捕获
+      const res = await getUserInfo()
+      this.commit('user/setUserInfo', res.data)
     },
     /**
      * 退出登陆

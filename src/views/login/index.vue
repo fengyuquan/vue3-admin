@@ -102,22 +102,16 @@ const store = useStore()
 const handleLogin = () => {
   loginFromRef.value.validate(async (valid) => {
     if (!valid) return
-
     loading.value = true
-    // store
-    //   .dispatch('user/login', loginForm.value)
-    //   .then(() => {
-    //     loading.value = false
-    //     // TODO 登陆后操作
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //     loading.value = false
-    //   })
-    await store.dispatch('user/login', loginForm.value)
-    loading.value = false
-    ElMessage.success('登陆成功')
-    router.push('/')
+    try {
+      await store.dispatch('user/login', loginForm.value)
+      ElMessage.success('登陆成功')
+      router.push('/')
+    } catch (error) {
+      ElMessage.error(error?.message || '登陆失败，请重新尝试！')
+    } finally {
+      loading.value = false
+    }
   })
 }
 </script>

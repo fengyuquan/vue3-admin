@@ -1,3 +1,4 @@
+import { ElMessage } from 'element-plus'
 import router from './router'
 import store from './store'
 
@@ -17,7 +18,11 @@ router.beforeEach(async (to, from, next) => {
     } else {
       // 进入非登陆页面时，查看vuex中是否存在userInfo
       if (!store.getters.hasUserInfo) {
-        await store.dispatch('user/getUserInfo')
+        try {
+          await store.dispatch('user/getUserInfo')
+        } catch (error) {
+          ElMessage.error(error?.message || '获取用户信息失败')
+        }
       }
       next()
     }
