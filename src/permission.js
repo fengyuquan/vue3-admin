@@ -12,9 +12,13 @@ router.beforeEach(async (to, from, next) => {
   // getters 快捷访问
   if (store.getters.token) {
     if (to.path === '/login') {
-      // 存在token的情况下，且token未过期（待实现），则不允许进入login页面
+      // TODO 存在token的情况下，且token未过期（待实现），则不允许进入login页面
       next('/')
     } else {
+      // 进入非登陆页面时，查看vuex中是否存在userInfo
+      if (!store.getters.hasUserInfo) {
+        await store.dispatch('user/getUserInfo')
+      }
       next()
     }
   } else {

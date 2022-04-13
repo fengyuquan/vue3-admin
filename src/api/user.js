@@ -8,4 +8,10 @@ const login = (data) => {
   })
 }
 
-export { login }
+const getUserInfo = () => {
+  return request({
+    url: '/user/info'
+  })
+}
+
+export { login, getUserInfo }
