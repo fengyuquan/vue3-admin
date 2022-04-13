@@ -2,6 +2,7 @@ import { getUserInfo, login } from '@/api/user'
 import { setItem, getItem, removeAllItem } from '@/utils/storage'
 import { RES_Ok, TOKEN } from '@/constant'
 import router from '@/router'
+import { setTimeStamp } from '@/utils/auth'
 
 export default {
   namespaced: true,
@@ -26,6 +27,7 @@ export default {
       try {
         const { token } = await login(userInfo)
         this.commit('user/setToken', token)
+        setTimeStamp() // 保存登陆时间
       } catch (err) {
         if (process.env.NODE_ENV === 'development') {
           console.log(err)

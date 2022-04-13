@@ -1,5 +1,6 @@
 import store from '@/store'
 import axios from 'axios'
+import { isTimeout } from './auth'
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -12,7 +13,14 @@ service.interceptors.request.use(
     const token = store.getters.token
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
+      // 请求发送前查看是否token已过期
+      if (isTimeout()) {
+        // 主动登出
+        store.dispatch('user/logout')
+        return Promise.reject(new Error('token已失效'))
+      }
     }
+
     return config // 必须返回配置
   },
   (error) => {
