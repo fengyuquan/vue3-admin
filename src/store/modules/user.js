@@ -1,6 +1,7 @@
 import { getUserInfo, login } from '@/api/user'
-import { setItem, getItem } from '@/utils/storage'
+import { setItem, getItem, removeAllItem } from '@/utils/storage'
 import { RES_Ok, TOKEN } from '@/constant'
+import router from '@/router'
 
 export default {
   namespaced: true,
@@ -45,6 +46,15 @@ export default {
           console.log(err)
         }
       }
+    },
+    /**
+     * 退出登陆
+     */
+    logout() {
+      this.commit('user/setToken', '')
+      this.commit('user/setUserInfo', {})
+      removeAllItem()
+      router.push('/login')
     }
   }
 }
