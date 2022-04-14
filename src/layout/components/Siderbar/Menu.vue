@@ -2,7 +2,7 @@
   <!-- 一级菜单 -->
   <el-menu
     :collapse="!$store.getters.sidebarOpened"
-    :default-active="activeMenu"
+    :default-active="$store.getters.activatedMenuItem"
     :background-color="$store.getters.cssVar.menuBg"
     :text-color="$store.getters.cssVar.menuText"
     :active-text-color="$store.getters.cssVar.menuActiveText"
@@ -53,11 +53,6 @@ import MenuTitle from './Title'
 
 const router = useRouter()
 
-// 激活的菜单项
-const activeMenu = computed(() => {
-  const { path } = router
-  return path
-})
 // 根据路由表生成符合挂载的菜单
 const routes = computed(() => {
   const filterRoutes = filterRouters(router.getRoutes())
