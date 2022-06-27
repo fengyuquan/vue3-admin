@@ -9,6 +9,7 @@
       class="sidebar-container"
       :style="{ backgroundColor: variables.menuBg }"
     />
+    <!-- 右侧 顶部导航、内容区 -->
     <div class="main-container">
       <div class="fixed-header">
         <!-- 顶部的 navbar -->

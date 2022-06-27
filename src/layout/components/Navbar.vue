@@ -65,8 +65,10 @@ const icon = computed(() =>
 // 面包屑导航数据
 const breadcrumbData = ref([])
 const getBreadcrumbData = () => {
+  // console.log(route.matched)
   breadcrumbData.value = route.matched.filter((item) => item?.meta?.title)
 }
+// 监听路由的变化，路由变化后则立即更新当前激活的菜单项为当前路由的path
 watch(
   route,
   () => {

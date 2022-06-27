@@ -54,9 +54,9 @@ const router = useRouter()
 // 根据路由表生成符合挂载的菜单
 const routes = computed(() => {
   const filterRoutes = filterRouters(router.getRoutes())
-  console.log(router.getRoutes()) // 获取所有的路由
-  console.log(filterRoutes) // 只要第一层路由，对于子路由，则直接过滤掉
-  console.log(generateMenus(filterRoutes)) // 根据menu规则，由路由表生成对应的menu菜单
+  // console.log(router.getRoutes()) // 获取所有的路由
+  // console.log(filterRoutes) // 只要第一层路由，对于子路由，则直接过滤掉
+  // console.log(generateMenus(filterRoutes)) // 根据menu规则，由路由表生成对应的menu菜单
   return generateMenus(filterRoutes)
 })
 </script>
