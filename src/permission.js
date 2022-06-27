@@ -1,6 +1,7 @@
 import { ElMessage } from 'element-plus'
 import router from './router'
 import store from './store'
+import { isTimeout } from './utils/auth'
 
 // 白名单
 const whiteList = ['/login']
@@ -9,11 +10,9 @@ const whiteList = ['/login']
  * 路由前置守卫
  */
 router.beforeEach(async (to, from, next) => {
-  // 存在token， 进入主页
-  // getters 快捷访问
-  if (store.getters.token) {
+  // 存在token的情况下，且token未过期（仅本地验证）
+  if (store.getters.token && !isTimeout()) {
     if (to.path === '/login') {
-      // TODO 存在token的情况下，且token未过期（待实现），则不允许进入login页面
       next('/')
     } else {
       // 进入非登陆页面时，查看vuex中是否存在userInfo

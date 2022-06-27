@@ -31,6 +31,7 @@ const props = defineProps({
 
 /**
  * 判断是否为外部的图标
+ * true / false
  */
 const isExternal = computed(() => external(props.icon))
 
