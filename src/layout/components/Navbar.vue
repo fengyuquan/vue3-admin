@@ -50,10 +50,11 @@ import { useStore } from 'vuex'
 const store = useStore()
 const route = useRoute()
 
-// 登出
+// 登出逻辑
 const logout = () => {
   store.dispatch('user/logout')
 }
+
 // 折叠侧边菜单栏按钮事件
 const toggleClick = () => {
   store.commit('app/triggerSidebarOpened')
@@ -62,12 +63,16 @@ const toggleClick = () => {
 const icon = computed(() =>
   store.getters.sidebarOpened ? 'hamburger-opened' : 'hamburger-closed'
 )
+
 // 面包屑导航数据
 const breadcrumbData = ref([])
 const getBreadcrumbData = () => {
   // console.log(route.matched)
   breadcrumbData.value = route.matched.filter((item) => item?.meta?.title)
 }
+// 面包屑导航hover颜色
+const linkHoverColor = ref(store.getters.cssVar.menuActiveText)
+
 // 监听路由的变化，路由变化后则立即更新当前激活的菜单项为当前路由的path
 watch(
   route,
@@ -108,6 +113,10 @@ watch(
     font-size: 14px;
     line-height: 50px;
     margin-left: 8px;
+
+    ::v-deep .is-link:hover {
+        color: v-bind(linkHoverColor) !important;
+    }
 
     ::v-deep .no-redirect {
       color: #97a8be;
