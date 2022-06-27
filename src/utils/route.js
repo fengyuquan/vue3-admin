@@ -40,35 +40,30 @@ const isNull = (data) => {
 const generateMenus = (routes) => {
   const result = []
   routes.forEach((item) => {
-    // 不存在 meta && 不存在 children  直接 return
+    // 路由情况一：不存在 meta && 不存在 children  直接 return；例如404 401 login路由
     if (isNull(item.meta) && isNull(item.children)) return
-    // 不存在 meta，但存在 children，则迭代其children
+    // 路由情况二：不存在 meta，但存在 children，则迭代其children；例如 / 路由 ，它的children有/profile /404 /401
     if (isNull(item.meta) && !isNull(item.children)) {
       result.push(...generateMenus(item.children))
       return
     }
 
-    // 读取 path 作为跳转路径
-    const routePath = item.path
-    // 路由分离之后，存在同名父路由的情况，需要单独处理
-    let route = result.find((item) => item.path === routePath)
-    if (!route) {
-      route = {
-        ...item,
-        path: routePath,
-        children: []
-      }
-
-      // icon 与 title 必须全部存在
-      if (route.meta.icon && route.meta.title) {
-        // meta 存在生成 route 对象，放入 arr
-        result.push(route)
-      }
+    // 路由情况三：本身路由存在meta，可能还有children
+    const route = {
+      name: item.name,
+      path: item.path,
+      meta: item.meta,
+      children: []
     }
 
-    // 存在 children 进入迭代到children
+    // 情况一：icon 与 title 必须全部存在，直接加入result；例如 /user
+    if (route.meta.icon && route.meta.title) {
+      result.push(route)
+    }
+
+    // 情况二：当前item还存在 children，则进入迭代到children；例如/user/manger
     if (item.children) {
-      route.children.push(...generateMenus(item.children, route.path))
+      route.children.push(...generateMenus(item.children))
     }
   })
   return result

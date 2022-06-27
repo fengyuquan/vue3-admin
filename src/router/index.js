@@ -7,6 +7,7 @@ import layout from '@/layout'
 const privateRoutes = [
   {
     path: '/user',
+    name: 'user',
     component: layout,
     redirect: '/user/manage',
     meta: {
@@ -16,6 +17,7 @@ const privateRoutes = [
     children: [
       {
         path: '/user/manage',
+        name: 'userManage',
         component: () => import('@/views/user-manage'),
         meta: {
           title: 'userManage',
@@ -24,10 +26,20 @@ const privateRoutes = [
       },
       {
         path: '/user/role',
+        name: 'userRole',
         component: () => import('@/views/role-list'),
         meta: {
           title: 'roleList',
           icon: 'role'
+        }
+      },
+      {
+        path: '/user/permission',
+        name: 'userPermission',
+        component: () => import('@/views/permission-list'),
+        meta: {
+          title: 'permissionList',
+          icon: 'permission'
         }
       },
       {
@@ -40,7 +52,7 @@ const privateRoutes = [
       },
       {
         path: '/user/import',
-        name: 'import',
+        name: 'userImport',
         component: () => import('@/views/import'),
         meta: {
           title: 'excelImport'
@@ -50,6 +62,7 @@ const privateRoutes = [
   },
   {
     path: '/article',
+    name: 'article',
     component: layout,
     redirect: '/article/ranking',
     meta: {
@@ -59,6 +72,7 @@ const privateRoutes = [
     children: [
       {
         path: '/article/ranking',
+        name: 'articleRanking',
         component: () => import('@/views/article-ranking'),
         meta: {
           title: 'articleRanking',
@@ -67,6 +81,7 @@ const privateRoutes = [
       },
       {
         path: '/article/:id',
+        name: 'articleDetail',
         component: () => import('@/views/article-detail'),
         meta: {
           title: 'articleDetail'
@@ -74,6 +89,7 @@ const privateRoutes = [
       },
       {
         path: '/article/create',
+        name: 'articleCreate',
         component: () => import('@/views/article-create'),
         meta: {
           title: 'articleCreate',
@@ -82,6 +98,7 @@ const privateRoutes = [
       },
       {
         path: '/article/editor/:id',
+        name: 'articleEditor',
         component: () => import('@/views/article-create'),
         meta: {
           title: 'articleEditor'
@@ -96,10 +113,12 @@ const privateRoutes = [
 const publicRoutes = [
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/views/login/index')
   },
   {
     path: '/',
+    name: 'homepage',
     component: layout,
     redirect: '/profile',
     children: [
