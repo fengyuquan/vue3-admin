@@ -7,7 +7,8 @@
       ref="loginFromRef"
     >
       <div class="title-container">
-        <h3 class="title">用户登陆</h3>
+        <h3 class="title">{{ $t('login.title')}}</h3>
+        <LangSelect class="lang-select" effect="light"/>
       </div>
 
       <el-form-item prop="email">
@@ -48,7 +49,7 @@
         style="width: 100%; margin-bottom: 30px"
         :loading="loading"
         @click="handleLogin"
-        >登陆</el-button
+        >{{ $t('login.loginBtn')}}</el-button
       >
     </el-form>
   </div>
@@ -60,6 +61,7 @@ import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 import { validatePassword, validateEmail } from './rules'
 import router from '@/router'
+import LangSelect from '@/components/LangSelect'
 
 // 数据源
 const loginForm = ref({
@@ -177,6 +179,17 @@ $cursor: #fff;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
+    }
+
+    ::v-deep .lang-select {
+      position: absolute;
+      top: 4px;
+      right: 0;
+      background-color: white;
+      font-size: 22px;
+      padding: 4px;
+      border-radius: 4px;
+      cursor: pointer;
     }
   }
 

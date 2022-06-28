@@ -11,11 +11,12 @@
           v-for="item in breadcrumbData"
           :key="item.path"
           :to="{ path: item.path }"
-          >{{ item.meta.title }}</el-breadcrumb-item
+          >{{ generateTitle(item.meta.title) }}</el-breadcrumb-item
         >
       </transition-group>
     </el-breadcrumb>
     <div class="right-menu">
+      <LangSelect class="right-menu-item hover-effect"></LangSelect>
       <!-- 头像 -->
       <el-dropdown trigger="hover" class="avatar-container">
         <div class="avatar-wrapper">
@@ -30,10 +31,10 @@
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
             <router-link to="/">
-              <el-dropdown-item> 首页 </el-dropdown-item>
+              <el-dropdown-item> {{ $t('navBar.home') }} </el-dropdown-item>
             </router-link>
             <el-dropdown-item divided @click="logout">
-              退出登录
+              {{ $t('navBar.logout') }}
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -46,6 +47,8 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import LangSelect from '@/components/LangSelect'
+import { generateTitle } from '@/utils/i18n'
 
 const store = useStore()
 const route = useRoute()
@@ -115,7 +118,7 @@ watch(
     margin-left: 8px;
 
     ::v-deep .is-link:hover {
-        color: v-bind(linkHoverColor) !important;
+      color: v-bind(linkHoverColor) !important;
     }
 
     ::v-deep .no-redirect {
@@ -138,6 +141,18 @@ watch(
         .el-avatar {
           margin-right: 12px;
         }
+      }
+    }
+
+    ::v-deep .right-menu-item {
+      display: inline-block;
+      padding: 0 18px 0 0;
+      font-size: 24px;
+      color: #5a5e66;
+      vertical-align: text-bottom;
+
+      &.hover-effect {
+        cursor: pointer;
       }
     }
   }

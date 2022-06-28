@@ -3,7 +3,7 @@
     <div class="logo-container">
       <el-avatar :size="44" shape="square" :src="Logo" />
       <h1 class="logo-title" v-if="$store.getters.sidebarOpened">
-        vue3-admin
+        {{ $t('title') }}
       </h1>
     </div>
     <el-scrollbar>
