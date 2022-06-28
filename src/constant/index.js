@@ -6,6 +6,7 @@ const LANG = 'language' // 国际化
 const MAIN_COLOR = 'mainColor' // 主题色
 const DEFAULT_COLOR = '#304156' // 默认色值
 const SIDERBAR_MENUS = 'siderbarMenus' // 侧边导航菜单项
+const TAGS_VIEW = 'tagsView'
 
 export {
   TOKEN,
@@ -15,5 +16,6 @@ export {
   LANG,
   MAIN_COLOR,
   DEFAULT_COLOR,
-  SIDERBAR_MENUS
+  SIDERBAR_MENUS,
+  TAGS_VIEW
 }

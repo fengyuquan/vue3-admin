@@ -9,7 +9,8 @@ const getters = {
   activatedMenuItem: (state) => state.app.activatedMenuItem,
   language: (state) => state.app.language,
   mainColor: (state) => state.theme.mainColor,
-  siderbarMenus: (state) => state.app.siderbarMenus
+  siderbarMenus: (state) => state.app.siderbarMenus,
+  tagsViewList: state => state.app.tagsViewList
 }
 
 export default getters

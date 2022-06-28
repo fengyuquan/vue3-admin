@@ -51,6 +51,7 @@ import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { generateTitle } from '@/utils/i18n'
+import { isTags } from '@/utils/tags'
 import LangSelect from '@/components/LangSelect'
 import ThemePicker from '@/components/ThemePicker'
 import Screenfull from '@/components/Screenfull'
@@ -82,12 +83,57 @@ const getBreadcrumbData = () => {
 // 面包屑导航hover颜色
 const linkHoverColor = ref(store.getters.cssVar.menuActiveText)
 
+/**
+ * 生成 title
+ */
+const getTitle = (route) => {
+  let title = ''
+  if (!route.meta) {
+    // 处理无 meta 的路由
+    const pathArr = route.path.split('/')
+    title = pathArr[pathArr.length - 1]
+  } else {
+    title = generateTitle(route.meta.title)
+  }
+  return title
+}
+
 // 监听路由的变化，路由变化后则立即更新当前激活的菜单项为当前路由的path
 watch(
   route,
-  () => {
+  (to) => {
     getBreadcrumbData()
     store.commit('app/changeActivatedMenuItem', route.path)
+    if (!isTags(to.path)) return
+    const { fullPath, meta, name, params, path, query } = to
+    store.commit('app/addTagsViewList', {
+      fullPath,
+      meta,
+      name,
+      params,
+      path,
+      query,
+      title: getTitle(to)
+    })
+  },
+  {
+    immediate: true
+  }
+)
+
+// 监听语言选择变化，修改tags中的title
+watch(
+  () => store.getters.language,
+  () => {
+    store.getters.tagsViewList.forEach((route, index) => {
+      store.commit('app/changeTagsView', {
+        index,
+        tag: {
+          ...route,
+          title: getTitle(route)
+        }
+      })
+    })
   },
   {
     immediate: true

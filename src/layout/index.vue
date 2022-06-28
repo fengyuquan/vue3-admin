@@ -14,6 +14,8 @@
       <div class="fixed-header">
         <!-- 顶部的 navbar -->
         <Navbar />
+        <!-- tags -->
+        <TagsView />
       </div>
       <!-- 内容区 -->
       <AppMain />
@@ -25,6 +27,7 @@
 import Navbar from './components/Navbar'
 import Sidebar from './components/Siderbar'
 import AppMain from './components/AppMain'
+import TagsView from '@/components/TagsView'
 </script>
 
 <style lang="scss" scoped>
