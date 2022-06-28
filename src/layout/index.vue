@@ -7,7 +7,7 @@
     <Sidebar
       id="guide-sidebar"
       class="sidebar-container"
-      :style="{ backgroundColor: variables.menuBg }"
+      :style="{ backgroundColor: $store.getters.cssVar.menuBg }"
     />
     <!-- 右侧 顶部导航、内容区 -->
     <div class="main-container">
@@ -25,7 +25,6 @@
 import Navbar from './components/Navbar'
 import Sidebar from './components/Siderbar'
 import AppMain from './components/AppMain'
-import variables from '@/styles/variables.module.scss'
 </script>
 
 <style lang="scss" scoped>

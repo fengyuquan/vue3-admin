@@ -16,7 +16,8 @@
       </transition-group>
     </el-breadcrumb>
     <div class="right-menu">
-      <LangSelect class="right-menu-item hover-effect"></LangSelect>
+      <ThemePicker class="right-menu-item hover-effect" />
+      <LangSelect class="right-menu-item hover-effect" />
       <!-- 头像 -->
       <el-dropdown trigger="hover" class="avatar-container">
         <div class="avatar-wrapper">
@@ -47,8 +48,9 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import LangSelect from '@/components/LangSelect'
 import { generateTitle } from '@/utils/i18n'
+import LangSelect from '@/components/LangSelect'
+import ThemePicker from '@/components/ThemePicker'
 
 const store = useStore()
 const route = useRoute()

@@ -30,7 +30,8 @@ export default {
   },
   theme: {
     themeColorChange: 'Theme Color Change',
-    themeChange: 'Theme Change'
+    themeChange: 'Theme Change',
+    themeColorReset: 'Reset'
   },
   universal: {
     confirm: 'confirm',

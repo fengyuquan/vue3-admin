@@ -30,7 +30,8 @@ export default {
   },
   theme: {
     themeColorChange: '主题色更换',
-    themeChange: '主题更换'
+    themeChange: '主题更换',
+    themeColorReset: '重置'
   },
   universal: {
     confirm: '确定',

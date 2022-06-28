@@ -1,19 +1,18 @@
 <template>
-  <el-dropdown
-    trigger="click"
-    @command="handleSetLanguage"
-  >
+  <el-dropdown trigger="hover" @command="handleSetLanguage">
     <div>
       <svg-icon icon="language" />
     </div>
 
     <template #dropdown>
-      <el-dropdown-item :disabled="language === 'zh'" command="zh"
-        >中文</el-dropdown-item
-      >
-      <el-dropdown-item :disabled="language === 'en'" command="en"
-        >English</el-dropdown-item
-      >
+      <el-dropdown-menu>
+        <el-dropdown-item :disabled="language === 'zh'" command="zh"
+          >中文</el-dropdown-item
+        >
+        <el-dropdown-item :disabled="language === 'en'" command="en"
+          >English</el-dropdown-item
+        >
+      </el-dropdown-menu>
     </template>
   </el-dropdown>
 </template>
