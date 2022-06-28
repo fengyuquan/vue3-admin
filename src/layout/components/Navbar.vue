@@ -16,6 +16,7 @@
       </transition-group>
     </el-breadcrumb>
     <div class="right-menu">
+      <HeaderSearch class="right-menu-item hover-effect" />
       <Screenfull class="right-menu-item hover-effect" />
       <ThemePicker class="right-menu-item hover-effect" />
       <LangSelect class="right-menu-item hover-effect" />
@@ -53,6 +54,7 @@ import { generateTitle } from '@/utils/i18n'
 import LangSelect from '@/components/LangSelect'
 import ThemePicker from '@/components/ThemePicker'
 import Screenfull from '@/components/Screenfull'
+import HeaderSearch from '@/components/HeaderSearch'
 
 const store = useStore()
 const route = useRoute()

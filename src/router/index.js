@@ -26,7 +26,7 @@ const privateRoutes = [
       },
       {
         path: '/user/role',
-        name: 'userRole',
+        name: 'roleList',
         component: () => import('@/views/role-list'),
         meta: {
           title: 'roleList',
@@ -35,7 +35,7 @@ const privateRoutes = [
       },
       {
         path: '/user/permission',
-        name: 'userPermission',
+        name: 'permissionList',
         component: () => import('@/views/permission-list'),
         meta: {
           title: 'permissionList',

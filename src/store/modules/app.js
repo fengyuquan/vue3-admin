@@ -1,4 +1,4 @@
-import { LANG } from '@/constant'
+import { LANG, SIDERBAR_MENUS } from '@/constant'
 import { getItem, setItem } from '@/utils/storage'
 
 export default {
@@ -6,7 +6,8 @@ export default {
   state: () => ({
     sidebarOpened: true,
     activatedMenuItem: '/',
-    language: getItem(LANG) ?? 'zh'
+    language: getItem(LANG) ?? 'zh',
+    siderbarMenus: getItem(SIDERBAR_MENUS) ?? []
   }),
   mutations: {
     triggerSidebarOpened(state) {
@@ -18,6 +19,10 @@ export default {
     setLanguage(state, lang) {
       setItem(LANG, lang)
       state.language = lang
+    },
+    setSiderbarMenus(state, menus) {
+      setItem(SIDERBAR_MENUS, menus)
+      state.siderbarMenus = menus
     }
   },
   actions: {}

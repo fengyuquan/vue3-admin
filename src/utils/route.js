@@ -69,4 +69,22 @@ const generateMenus = (routes) => {
   return result
 }
 
-export { filterRouters, generateMenus }
+const flattenRouters = (routes) => {
+  const result = []
+  routes.forEach((item) => {
+    if (!isNull(item.children)) {
+      result.push(...flattenRouters(item.children))
+      return
+    }
+    const route = {
+      name: item.name,
+      path: item.path,
+      meta: item.meta
+    }
+
+    result.push(route)
+  })
+  return result
+}
+
+export { filterRouters, generateMenus, flattenRouters }

@@ -45,11 +45,13 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import { filterRouters, generateMenus } from '@/utils/route'
+import { filterRouters, flattenRouters, generateMenus } from '@/utils/route'
 import MenuTitle from './Title'
 
 const router = useRouter()
+const store = useStore()
 
 // 根据路由表生成符合挂载的菜单
 const routes = computed(() => {
@@ -57,7 +59,9 @@ const routes = computed(() => {
   // console.log(router.getRoutes()) // 获取所有的路由
   // console.log(filterRoutes) // 只要第一层路由，对于子路由，则直接过滤掉
   // console.log(generateMenus(filterRoutes)) // 根据menu规则，由路由表生成对应的menu菜单
-  return generateMenus(filterRoutes)
+  const menus = generateMenus(filterRoutes)
+  store.commit('app/setSiderbarMenus', JSON.stringify(flattenRouters(menus)))
+  return menus
 })
 </script>
 

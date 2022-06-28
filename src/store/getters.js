@@ -8,7 +8,8 @@ const getters = {
   sidebarOpened: (state) => state.app.sidebarOpened,
   activatedMenuItem: (state) => state.app.activatedMenuItem,
   language: (state) => state.app.language,
-  mainColor: (state) => state.theme.mainColor
+  mainColor: (state) => state.theme.mainColor,
+  siderbarMenus: (state) => state.app.siderbarMenus
 }
 
 export default getters
