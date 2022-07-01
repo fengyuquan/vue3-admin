@@ -24,10 +24,10 @@
       <el-dropdown trigger="hover" class="avatar-container">
         <div class="avatar-wrapper">
           <el-avatar
-            v-if="$store.getters.userInfo.avatar"
+            v-if="userStore.userInfo.avatar"
             :size="40"
             shape="circle"
-            :src="$store.getters.userInfo.avatar"
+            :src="userStore.userInfo.avatar"
           ></el-avatar>
           <el-avatar v-else>user</el-avatar>
         </div>
@@ -49,29 +49,33 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
 import { generateTitle } from '@/utils/i18n'
 import { isTags } from '@/utils/tags'
+import useUserStore from '@/stores/user'
+import useAppStore from '@/stores/app'
+import useThemeStore from '@/stores/theme'
 import LangSelect from '@/components/LangSelect'
 import ThemePicker from '@/components/ThemePicker'
 import Screenfull from '@/components/Screenfull'
 import HeaderSearch from '@/components/HeaderSearch'
 
-const store = useStore()
+const userStore = useUserStore()
+const appStore = useAppStore()
+const themeStore = useThemeStore()
 const route = useRoute()
 
 // 登出逻辑
 const logout = () => {
-  store.dispatch('user/logout')
+  userStore.logout()
 }
 
 // 折叠侧边菜单栏按钮事件
 const toggleClick = () => {
-  store.commit('app/triggerSidebarOpened')
+  appStore.triggerSidebarOpened()
 }
 // 折叠侧边菜单栏按钮图标
 const icon = computed(() =>
-  store.getters.sidebarOpened ? 'hamburger-opened' : 'hamburger-closed'
+  appStore.sidebarOpened ? 'hamburger-opened' : 'hamburger-closed'
 )
 
 // 面包屑导航数据
@@ -81,7 +85,7 @@ const getBreadcrumbData = () => {
   breadcrumbData.value = route.matched.filter((item) => item?.meta?.title)
 }
 // 面包屑导航hover颜色
-const linkHoverColor = ref(store.getters.cssVar.menuActiveText)
+const linkHoverColor = ref(themeStore.cssVar.menuActiveText)
 
 /**
  * 生成 title
@@ -103,10 +107,10 @@ watch(
   route,
   (to) => {
     getBreadcrumbData()
-    store.commit('app/changeActivatedMenuItem', route.path)
+    appStore.changeActivatedMenuItem(route.path)
     if (!isTags(to.path)) return
     const { fullPath, meta, name, params, path, query } = to
-    store.commit('app/addTagsViewList', {
+    appStore.addTagsViewList({
       fullPath,
       meta,
       name,
@@ -123,10 +127,10 @@ watch(
 
 // 监听语言选择变化，修改tags中的title
 watch(
-  () => store.getters.language,
+  () => appStore.language,
   () => {
-    store.getters.tagsViewList.forEach((route, index) => {
-      store.commit('app/changeTagsView', {
+    appStore.tagsViewList.forEach((route, index) => {
+      appStore.changeTagsView({
         index,
         tag: {
           ...route,

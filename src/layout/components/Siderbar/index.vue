@@ -2,7 +2,7 @@
   <div>
     <div class="logo-container">
       <el-avatar :size="44" shape="square" :src="Logo" />
-      <h1 class="logo-title" v-if="$store.getters.sidebarOpened">
+      <h1 class="logo-title" v-if="appStore.sidebarOpened">
         {{ $t('title') }}
       </h1>
     </div>
@@ -15,6 +15,9 @@
 <script setup>
 import SiderbarMenu from './Menu'
 import Logo from '@/assets/logo.png'
+import useAppStore from '@/stores/app'
+
+const appStore = useAppStore()
 </script>
 
 <style lang="scss" scoped>

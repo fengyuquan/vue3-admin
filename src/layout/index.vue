@@ -1,13 +1,13 @@
 <template>
   <div
     class="app-wrapper"
-    :class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']"
+    :class="[appStore.sidebarOpened ? 'openSidebar' : 'hideSidebar']"
   >
     <!-- 左侧 menu -->
     <Sidebar
       id="guide-sidebar"
       class="sidebar-container"
-      :style="{ backgroundColor: $store.getters.cssVar.menuBg }"
+      :style="{ backgroundColor: themeStore.cssVar.menuBg }"
     />
     <!-- 右侧 顶部导航、内容区 -->
     <div class="main-container">
@@ -28,6 +28,11 @@ import Navbar from './components/Navbar'
 import Sidebar from './components/Siderbar'
 import AppMain from './components/AppMain'
 import TagsView from '@/components/TagsView'
+import useThemeStore from '@/stores/theme'
+import useApptore from '@/stores/app'
+
+const themeStore = useThemeStore()
+const appStore = useApptore()
 </script>
 
 <style lang="scss" scoped>

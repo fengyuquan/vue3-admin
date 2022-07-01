@@ -19,18 +19,18 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
+import useAppStore from '@/stores/app'
 
-const store = useStore()
-const language = computed(() => store.getters.language)
+const appStore = useAppStore()
+const language = computed(() => appStore.language)
 
 // 切换语言方法
 const i18n = useI18n()
 const handleSetLanguage = (lang) => {
   i18n.locale.value = lang
-  store.commit('app/setLanguage', lang)
+  appStore.setLanguage(lang)
   ElMessage.success(i18n.t('toast.switchLangSuccess'))
 }
 </script>

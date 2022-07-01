@@ -25,12 +25,12 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { debounce } from 'lodash'
 import { generateTitle } from '@/utils/i18n'
+import useAppStore from '@/stores/app'
 
-const store = useStore()
+const appStore = useAppStore()
 const router = useRouter()
 
 const options = ref([
@@ -43,7 +43,7 @@ const options = ref([
 
 // search 搜索逻辑相关
 const search = ref('')
-const originData = JSON.parse(store.getters.siderbarMenus)
+const originData = JSON.parse(appStore.siderbarMenus)
 const querySearch = debounce(() => {
   // 获取当前菜单项的值，如果包含search内容，则保留该路由
   options.value = originData.filter((item) => {

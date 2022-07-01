@@ -57,11 +57,11 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 import { validatePassword, validateEmail } from './rules'
 import router from '@/router'
 import LangSelect from '@/components/LangSelect'
+import useUserStore from '@/stores/user'
 
 // 数据源
 const loginForm = ref({
@@ -100,13 +100,13 @@ const onChangePwdType = () => {
 // 登陆动作处理
 const loading = ref(false)
 const loginFromRef = ref(null)
-const store = useStore()
+const userStore = useUserStore()
 const handleLogin = () => {
   loginFromRef.value.validate(async (valid) => {
     if (!valid) return
     loading.value = true
     try {
-      await store.dispatch('user/login', loginForm.value)
+      await userStore.login(loginForm.value)
       ElMessage.success('登陆成功')
       router.push('/')
     } catch (error) {

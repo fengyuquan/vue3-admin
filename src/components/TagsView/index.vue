@@ -4,10 +4,10 @@
       class="tags-view-item"
       :class="isActive(tag) ? 'active' : ''"
       :style="{
-        backgroundColor: isActive(tag) ? $store.getters.cssVar.menuBg : '',
-        borderColor: isActive(tag) ? $store.getters.cssVar.menuBg : ''
+        backgroundColor: isActive(tag) ? themeStore.cssVar.menuBg : '',
+        borderColor: isActive(tag) ? themeStore.cssVar.menuBg : ''
       }"
-      v-for="tag in $store.getters.tagsViewList"
+      v-for="tag in appStore.tagsViewList"
       :key="tag.fullPath"
       :to="{ path: tag.fullPath }"
     >
@@ -22,11 +22,13 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
+import useThemeStore from '@/stores/theme'
+import useApptore from '@/stores/app'
 
+const themeStore = useThemeStore()
+const appStore = useApptore()
 const route = useRoute()
-const store = useStore()
 
 /**
  * 是否被选中
@@ -39,7 +41,7 @@ const isActive = (tag) => {
  * 关闭 tag 的点击事件
  */
 const onCloseClick = (fullPath) => {
-  store.commit('app/removeTagsView', fullPath)
+  appStore.removeTagsView(fullPath)
 }
 </script>
 

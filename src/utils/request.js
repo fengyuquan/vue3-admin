@@ -1,4 +1,4 @@
-import store from '@/store'
+import useUserStore from '@/stores/user'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { isTimeout } from './auth'
@@ -11,13 +11,14 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   (config) => {
-    const token = store.getters.token
+    const userStore = useUserStore()
+    const token = userStore.token
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
       // 请求发送前查看是否token已过期
       if (isTimeout()) {
         // 主动登出
-        store.dispatch('user/logout')
+        userStore.logout()
         return Promise.reject(new Error('token已失效'))
       }
     }
@@ -39,11 +40,12 @@ service.interceptors.response.use(
     return data ?? ''
   },
   (error) => {
+    const userStore = useUserStore()
     const { data } = error.response
     // 处理token超时、失效，未携带token访问权限接口的问题
     const code = data.code
     if (code === 20003 || code === 20004 || code === 20007 || code === 20008) {
-      store.dispatch('user/logout')
+      userStore.logout()
       ElMessage.error(data?.message || '请重新登陆')
     }
     if (process.env.NODE_ENV === 'development') {

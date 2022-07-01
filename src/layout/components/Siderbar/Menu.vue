@@ -1,11 +1,11 @@
 <template>
   <!-- 一级菜单 -->
   <el-menu
-    :collapse="!$store.getters.sidebarOpened"
-    :default-active="$store.getters.activatedMenuItem"
-    :background-color="$store.getters.cssVar.menuBg"
-    :text-color="$store.getters.cssVar.menuText"
-    :active-text-color="$store.getters.cssVar.menuActiveText"
+    :collapse="!appStore.sidebarOpened"
+    :default-active="appStore.activatedMenuItem"
+    :background-color="themeStore.cssVar.menuBg"
+    :text-color="themeStore.cssVar.menuText"
+    :active-text-color="themeStore.cssVar.menuActiveText"
     :router="true"
   >
     <template v-for="route in routes" :key="route.path">
@@ -45,13 +45,15 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { filterRouters, flattenRouters, generateMenus } from '@/utils/route'
+import useAppStore from '@/stores/app'
+import useThemeStore from '@/stores/theme'
 import MenuTitle from './Title'
 
 const router = useRouter()
-const store = useStore()
+const appStore = useAppStore()
+const themeStore = useThemeStore()
 
 // 根据路由表生成符合挂载的菜单
 const routes = computed(() => {
@@ -60,7 +62,7 @@ const routes = computed(() => {
   // console.log(filterRoutes) // 只要第一层路由，对于子路由，则直接过滤掉
   // console.log(generateMenus(filterRoutes)) // 根据menu规则，由路由表生成对应的menu菜单
   const menus = generateMenus(filterRoutes)
-  store.commit('app/setSiderbarMenus', JSON.stringify(flattenRouters(menus)))
+  appStore.setSiderbarMenus(JSON.stringify(flattenRouters(menus)))
   return menus
 })
 </script>

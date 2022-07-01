@@ -28,15 +28,16 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
 import SelectColor from '@/components/SelectColor'
+import useThemeStore from '@/stores/theme'
 
-const store = useStore()
+const themeStore = useThemeStore()
+
 const selectColorVisible = ref(false)
 
 const handleSetTheme = (command) => {
   if (command === 'reset') {
-    store.commit('theme/resetMainColor')
+    themeStore.resetMainColor()
     return
   }
   selectColorVisible.value = true

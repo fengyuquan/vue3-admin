@@ -20,9 +20,9 @@
 
 <script setup>
 import { defineProps, defineEmits, ref } from 'vue'
-import { useStore } from 'vuex'
+import useThemeStore from '@/stores/theme'
 
-const store = useStore()
+const themeStore = useThemeStore()
 
 defineProps({
   modelValue: {
@@ -50,7 +50,7 @@ const predefineColors = [
   '#c7158577'
 ]
 // 默认色值
-const mColor = ref(store.getters.mainColor)
+const mColor = ref(themeStore.mainColor)
 
 /**
  * 关闭
@@ -66,7 +66,7 @@ const closed = () => {
  * 3. 关闭 dialog
  */
 const comfirm = async () => {
-  store.commit('theme/setMainColor', mColor.value)
+  themeStore.setMainColor(mColor.value)
   closed()
 }
 </script>
